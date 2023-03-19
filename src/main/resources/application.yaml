@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: threecommas-exporter
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: [ "health","prometheus", "metrics" ]
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+server:
+  port: 8080
+
+3commas:
+  baseUrl: https://api.3commas.io
