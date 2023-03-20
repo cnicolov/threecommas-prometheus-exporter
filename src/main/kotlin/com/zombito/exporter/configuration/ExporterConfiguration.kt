@@ -1,23 +1,26 @@
 package com.zombito.exporter.configuration
 
-import com.zombito.exporter.ThreeCommasPrometheusCollector
+import com.zombito.exporter.ThreeCommasBotsPrometheusCollector
 import com.zombito.exporter.services.ThreeCommasService
 import io.prometheus.client.CollectorRegistry
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
-import org.springframework.stereotype.Component
+import org.springframework.context.annotation.Configuration
 
-@Component
-class ExporterConfiguration @Autowired constructor (val threeCommasService: ThreeCommasService) {
+@Configuration
+class ExporterConfiguration constructor(val threeCommasService: ThreeCommasService) {
 
+    /**
+     * @author: Kristiyan Nikolov
+     * Export as bean for Spring collectors to use
+     */
     @Bean
     fun collectorRegistry() : CollectorRegistry {
-        return CollectorRegistry.defaultRegistry;
+        return CollectorRegistry.defaultRegistry
     }
 
     @Bean
-    fun threeCommasCollector(service: ThreeCommasService) : ThreeCommasPrometheusCollector {
-        return ThreeCommasPrometheusCollector(service).register(collectorRegistry())
+    fun threeCommasCollector() : ThreeCommasBotsPrometheusCollector {
+        return ThreeCommasBotsPrometheusCollector(threeCommasService).register(collectorRegistry())
     }
 }

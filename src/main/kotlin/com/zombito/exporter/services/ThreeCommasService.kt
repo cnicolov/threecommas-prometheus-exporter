@@ -4,7 +4,6 @@ import com.zombito.exporter.model.BotDealsStatsEntity
 import com.zombito.exporter.model.BotEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import java.lang.Exception
 
 @Component
 class ThreeCommasService @Autowired constructor(val api: ThreeCommasApi) {

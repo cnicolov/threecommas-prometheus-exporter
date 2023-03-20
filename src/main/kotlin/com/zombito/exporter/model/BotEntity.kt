@@ -15,17 +15,8 @@
 
 package com.zombito.exporter.model
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-
-import com.zombito.exporter.model.BotType
-import com.zombito.exporter.model.LeverageType
-import com.zombito.exporter.model.OrderVolumeEnum
-import com.zombito.exporter.model.ProfitCurrencyEnum
-import com.zombito.exporter.model.StopLossType
-import com.zombito.exporter.model.StrategyType
-import com.zombito.exporter.model.TakeProfitType
 
 
 /**

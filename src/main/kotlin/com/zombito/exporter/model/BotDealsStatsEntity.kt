@@ -37,34 +37,34 @@ import com.fasterxml.jackson.annotation.JsonProperty
 data class BotDealsStatsEntity (
 
     @field:JsonProperty("completed")
-    val completed: kotlin.Int? = null,
+    val completed: Int,
 
     @field:JsonProperty("panic_sold")
-    val panicSold: kotlin.Int? = null,
+    val panicSold: Int,
 
     @field:JsonProperty("active")
-    val active: kotlin.Int? = null,
+    val active: Int,
 
     @field:JsonProperty("completed_deals_usd_profit")
-    val completedDealsUsdProfit: kotlin.String? = null,
+    val completedDealsUsdProfit: Double,
 
     @field:JsonProperty("from_currency_is_dollars")
-    val fromCurrencyIsDollars: kotlin.Boolean? = null,
+    val fromCurrencyIsDollars: Boolean,
 
     @field:JsonProperty("completed_deals_btc_profit")
-    val completedDealsBtcProfit: kotlin.String? = null,
+    val completedDealsBtcProfit: Double,
 
     @field:JsonProperty("funds_locked_in_active_deals")
-    val fundsLockedInActiveDeals: kotlin.String? = null,
+    val fundsLockedInActiveDeals: Double,
 
     @field:JsonProperty("btc_funds_locked_in_active_deals")
-    val btcFundsLockedInActiveDeals: kotlin.String? = null,
+    val btcFundsLockedInActiveDeals: Double,
 
     @field:JsonProperty("active_deals_usd_profit")
-    val activeDealsUsdProfit: kotlin.String? = null,
+    val activeDealsUsdProfit: Double,
 
     @field:JsonProperty("active_deals_btc_profit")
-    val activeDealsBtcProfit: kotlin.String? = null
+    val activeDealsBtcProfit: Double
 
 )
 
