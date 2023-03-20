@@ -51,10 +51,10 @@ enum class ProfitCurrencyEnum(val value: kotlin.String) {
          * Returns a valid [ProfitCurrencyEnum] for [data], null otherwise.
          */
         fun decode(data: kotlin.Any?): ProfitCurrencyEnum? = data?.let {
-          val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
-            it == value || normalizedData == "$value".lowercase()
-          }
+            val normalizedData = "$it".lowercase()
+            values().firstOrNull { value ->
+                it == value || normalizedData == "$value".lowercase()
+            }
         }
     }
 }

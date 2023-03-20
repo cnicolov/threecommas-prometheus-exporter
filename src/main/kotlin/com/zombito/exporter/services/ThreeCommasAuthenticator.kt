@@ -10,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec
 /**
  * @author: Kristiyan Nikolov
  */
-class ThreeCommasAuthenticator(private val apiKey: String, private val apiSecret: String) {
+class ThreeCommasAuthenticator( private val apiKey: String, private val apiSecret: String) {
 
   private fun byteToHex(byteArray: ByteArray) : String {
     val sb = StringBuilder(byteArray.size* 2)

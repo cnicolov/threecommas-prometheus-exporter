@@ -54,10 +54,10 @@ enum class LeverageType(val value: kotlin.String) {
          * Returns a valid [LeverageType] for [data], null otherwise.
          */
         fun decode(data: kotlin.Any?): LeverageType? = data?.let {
-          val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
-            it == value || normalizedData == "$value".lowercase()
-          }
+            val normalizedData = "$it".lowercase()
+            values().firstOrNull { value ->
+                it == value || normalizedData == "$value".lowercase()
+            }
         }
     }
 }

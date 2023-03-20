@@ -54,10 +54,10 @@ enum class BotType(val value: kotlin.String) {
          * Returns a valid [BotType] for [data], null otherwise.
          */
         fun decode(data: kotlin.Any?): BotType? = data?.let {
-          val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
-            it == value || normalizedData == "$value".lowercase()
-          }
+            val normalizedData = "$it".lowercase()
+            values().firstOrNull { value ->
+                it == value || normalizedData == "$value".lowercase()
+            }
         }
     }
 }

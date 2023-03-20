@@ -1,5 +1,6 @@
 package com.zombito.exporter
 
+import com.zombito.exporter.model.Account
 import com.zombito.exporter.model.BotDealsStatsEntity
 import com.zombito.exporter.model.BotEntity
 import com.zombito.exporter.services.ThreeCommasService
@@ -10,6 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired
 class ThreeCommasBotsPrometheusCollector @Autowired constructor(private var service: ThreeCommasService): Collector() {
 
     override fun collect(): MutableList<MetricFamilySamples> {
+
+        val accountBalanceMetric = GaugeMetricFamily(
+            "threecommas_account_balance",
+            "How much moneyz we haz in threecommas",
+            listOf("account_id", "currency")
+        )
 
         val botProfitMetric = GaugeMetricFamily(
             "threecommas_realized_bots_profit",
@@ -35,6 +42,8 @@ class ThreeCommasBotsPrometheusCollector @Autowired constructor(private var serv
             listOf("bot_id", "bot_name")
         )
 
+        service.getAccounts().forEach { account -> collectAccountBalance(account, accountBalanceMetric) }
+
         val metricFamilies = mutableListOf<MetricFamilySamples>()
         val bots = service.getBots()
 
@@ -51,6 +60,7 @@ class ThreeCommasBotsPrometheusCollector @Autowired constructor(private var serv
         metricFamilies.add(unrealizedBotProfitMetric)
         metricFamilies.add(fundsLockedMetric)
         metricFamilies.add(botActiveDealsMetric)
+        metricFamilies.add(accountBalanceMetric)
         return metricFamilies
     }
 
@@ -85,5 +95,10 @@ class ThreeCommasBotsPrometheusCollector @Autowired constructor(private var serv
 
     fun collectActiveDeals(bot: BotEntity, activeDealsMetric: GaugeMetricFamily) {
         activeDealsMetric.addMetric(listOf(bot.id.toString(), bot.name), bot.activeDealsCount!!.toDouble())
+    }
+
+    fun collectAccountBalance(account: Account, metric: GaugeMetricFamily) {
+        metric.addMetric(listOf(account.id.toString(), "USD"), account.usdAmount)
+        metric.addMetric(listOf(account.id.toString(), "BTC"), account.btcAmount)
     }
 }

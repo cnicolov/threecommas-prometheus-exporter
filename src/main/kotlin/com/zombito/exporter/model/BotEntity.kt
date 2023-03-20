@@ -20,62 +20,60 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 
 /**
- * 
  *
- * @param id 
- * @param accountId 
- * @param isEnabled 
- * @param maxSafetyOrders 
- * @param activeSafetyOrdersCount 
- * @param pairs 
- * @param strategyList 
- * @param maxActiveDeals 
- * @param activeDealsCount 
- * @param deletableQuestionMark 
- * @param createdAt 
- * @param updatedAt 
- * @param trailingEnabled 
- * @param tslEnabled 
+ *
+ * @param id
+ * @param accountId
+ * @param isEnabled
+ * @param maxSafetyOrders
+ * @param activeSafetyOrdersCount
+ * @param pairs
+ * @param strategyList
+ * @param maxActiveDeals
+ * @param activeDealsCount
+ * @param deletableQuestionMark
+ * @param createdAt
+ * @param updatedAt
+ * @param trailingEnabled
+ * @param tslEnabled
  * @param dealStartDelaySeconds Deal start delay in seconds
- * @param stopLossTimeoutEnabled 
- * @param stopLossTimeoutInSeconds 
- * @param disableAfterDealsCount 
- * @param dealsCounter 
- * @param allowedDealsOnSamePair 
- * @param easyFormSupported 
+ * @param stopLossTimeoutEnabled
+ * @param stopLossTimeoutInSeconds
+ * @param disableAfterDealsCount
+ * @param dealsCounter
+ * @param allowedDealsOnSamePair
+ * @param easyFormSupported
  * @param closeDealsTimeout Close bot deals after given number of seconds
- * @param urlSecret 
- * @param name 
+ * @param urlSecret
+ * @param name
  * @param takeProfit Percentage
- * @param baseOrderVolume 
- * @param safetyOrderVolume 
- * @param safetyOrderStepPercentage 
- * @param takeProfitType 
- * @param type 
- * @param martingaleVolumeCoefficient 
- * @param martingaleStepCoefficient 
- * @param stopLossPercentage 
- * @param cooldown 
- * @param btcPriceLimit 
- * @param strategy 
- * @param minVolumeBtc24h 
- * @param profitCurrency 
- * @param minPrice 
- * @param maxPrice 
- * @param stopLossType 
- * @param safetyOrderVolumeType 
- * @param baseOrderVolumeType 
- * @param accountName 
- * @param trailingDeviation 
- * @param finishedDealsProfitUsd 
- * @param finishedDealsCount 
- * @param leverageType 
- * @param leverageCustomValue 
+ * @param baseOrderVolume
+ * @param safetyOrderVolume
+ * @param safetyOrderStepPercentage
+ * @param takeProfitType
+ * @param type
+ * @param martingaleVolumeCoefficient
+ * @param martingaleStepCoefficient
+ * @param stopLossPercentage
+ * @param cooldown
+ * @param btcPriceLimit
+ * @param strategy
+ * @param minVolumeBtc24h
+ * @param profitCurrency
+ * @param minPrice
+ * @param maxPrice
+ * @param stopLossType
+ * @param safetyOrderVolumeType
+ * @param baseOrderVolumeType
+ * @param accountName
+ * @param trailingDeviation
+ * @param finishedDealsProfitUsd
+ * @param finishedDealsCount
+ * @param leverageType
+ * @param leverageCustomValue
  * @param startOrderType Values: limit, market
  * @param activeDealsUsdProfit Sum of active deals profits
  */
-
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class BotEntity (
 

@@ -19,18 +19,18 @@ package com.zombito.exporter.model
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
  *
- * @param completed 
- * @param panicSold 
- * @param active 
- * @param completedDealsUsdProfit 
- * @param fromCurrencyIsDollars 
- * @param completedDealsBtcProfit 
- * @param fundsLockedInActiveDeals 
- * @param btcFundsLockedInActiveDeals 
- * @param activeDealsUsdProfit 
- * @param activeDealsBtcProfit 
+ *
+ * @param completed
+ * @param panicSold
+ * @param active
+ * @param completedDealsUsdProfit
+ * @param fromCurrencyIsDollars
+ * @param completedDealsBtcProfit
+ * @param fundsLockedInActiveDeals
+ * @param btcFundsLockedInActiveDeals
+ * @param activeDealsUsdProfit
+ * @param activeDealsBtcProfit
  */
 
 
