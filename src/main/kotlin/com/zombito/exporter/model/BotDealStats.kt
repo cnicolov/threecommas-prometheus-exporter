@@ -34,7 +34,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 
 
-data class BotDealsStatsEntity (
+
+data class BotDealStats (
 
     @field:JsonProperty("completed")
     val completed: Int,

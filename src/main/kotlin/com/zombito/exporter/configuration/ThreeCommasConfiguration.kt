@@ -11,14 +11,13 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 
 @Configuration
 @ConfigurationProperties(prefix = "3commas")
-class ThreeCommasConfiguration {
+class ServiceConfiguration {
   lateinit var apiKey: String
   lateinit var apiSecret: String
   lateinit var baseUrl: String
 
   @Bean
   fun threeCommasApiService() : ThreeCommasApi {
-    // TODO: Encapsulate this in service package
     val client = ThreeCommasAuthenticator(apiKey, apiSecret).createAuthenticatedClient()
     val mapper = JsonMapper.builder().findAndAddModules().build()
     val retrofit = Retrofit.Builder()
@@ -26,6 +25,7 @@ class ThreeCommasConfiguration {
       .client(client)
       .addConverterFactory(JacksonConverterFactory.create(mapper))
       .build()
+
     return retrofit.create(ThreeCommasApi::class.java)
   }
 }

@@ -75,7 +75,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param activeDealsUsdProfit Sum of active deals profits
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class BotEntity (
+data class Bot (
 
     @field:JsonProperty("id")
     val id: Int? = null,

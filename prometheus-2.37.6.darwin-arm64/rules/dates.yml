@@ -1,0 +1,17 @@
+---
+groups:
+  - name: ImportantDates
+    rules:
+
+      - record: :fed_meeting_time
+        expr: 1679486400 - time()
+        labels:
+          month: "March"
+
+      - alert: FedMeetingApproachingInTwoDays
+        expr: (:fed_meeting_time <= bool 172800) and (:fed_meeting_time >= bool 0)
+        for: 5m
+
+      - alert: FedMeetingApproachingInOneDay
+        expr: (:fed_meeting_time <= bool 86400) and (:fed_meeting_time >= bool 0)
+        for: 5m

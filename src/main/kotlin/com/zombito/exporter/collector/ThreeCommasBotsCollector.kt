@@ -1,36 +1,20 @@
-package com.zombito.exporter
+package com.zombito.exporter.collector
 
-import com.zombito.exporter.model.Account
-import com.zombito.exporter.model.BotDealsStatsEntity
-import com.zombito.exporter.model.BotEntity
+import com.zombito.exporter.model.BotDealStats
+import com.zombito.exporter.model.Bot
 import com.zombito.exporter.services.ThreeCommasService
 import io.prometheus.client.Collector
 import io.prometheus.client.GaugeMetricFamily
-import org.springframework.beans.factory.annotation.Autowired
 
-class ThreeCommasBotsPrometheusCollector @Autowired constructor(private var service: ThreeCommasService): Collector() {
-
-    private val accountBalanceMetric = GaugeMetricFamily(
-        "threecommas_account_balance",
-        "How much moneyz we haz in threecommas",
-        listOf("account_id", "currency")
-    )
-    private val botProfitMetric = GaugeMetricFamily(
-        "threecommas_realized_bots_profit",
-        "3Commas realized bot profit by currency",
-        listOf("currency", "bot_id", "bot_name")
-    )
-    private val unrealizedBotProfitMetric = GaugeMetricFamily(
-        "threecommas_unrealized_bots_profit",
-        "3Commas unrealized bot profit by currency",
-        listOf("currency", "bot_id", "bot_name")
-    )
-    private val fundsLockedMetric = GaugeMetricFamily( "threecommas_funds_locked_in_bot", "3Commas funds locked in active deals", listOf("currency", "bot_id", "bot_name") )
-    private val botActiveDealsMetric = GaugeMetricFamily( "threecommas_bot_active_deals", "3Commas active deals per bot", listOf("bot_id", "bot_name") )
+class ThreeCommasBotsCollector constructor(private var service: ThreeCommasService): Collector() {
 
     override fun collect(): MutableList<MetricFamilySamples> {
 
-        service.getAccounts().forEach { account -> collectAccountBalance(account, accountBalanceMetric) }
+        val botProfitMetric = GaugeMetricFamily("threecommas_realized_bots_profit","3Commas realized bot profit by currency", listOf("currency", "bot_id", "bot_name")
+        )
+        val unrealizedBotProfitMetric = GaugeMetricFamily("threecommas_unrealized_bots_profit", "3Commas unrealized bot profit by currency", listOf("currency", "bot_id", "bot_name"))
+        val fundsLockedMetric = GaugeMetricFamily("threecommas_funds_locked_in_bot", "3Commas funds locked in active deals", listOf("currency", "bot_id", "bot_name"))
+        val botActiveDealsMetric = GaugeMetricFamily("threecommas_bot_active_deals", "3Commas active deals per bot", listOf("bot_id", "bot_name"))
 
         val metricFamilies = mutableListOf<MetricFamilySamples>()
         val bots = service.getBots()
@@ -48,14 +32,14 @@ class ThreeCommasBotsPrometheusCollector @Autowired constructor(private var serv
         metricFamilies.add(unrealizedBotProfitMetric)
         metricFamilies.add(fundsLockedMetric)
         metricFamilies.add(botActiveDealsMetric)
-        metricFamilies.add(accountBalanceMetric)
+
         return metricFamilies
     }
 
     private fun collectRealizedBotProfit(
-        bot: BotEntity,
+        bot: Bot,
         botProfitMetric: GaugeMetricFamily,
-        dealsStatsEntity: BotDealsStatsEntity
+        dealsStatsEntity: BotDealStats
     ) {
         val usdProfit = dealsStatsEntity.completedDealsUsdProfit
         val btcProfit = dealsStatsEntity.completedDealsBtcProfit
@@ -64,9 +48,9 @@ class ThreeCommasBotsPrometheusCollector @Autowired constructor(private var serv
     }
 
     private fun collectUnrealizedBotProfit(
-        bot: BotEntity,
+        bot: Bot,
         botProfitMetric: GaugeMetricFamily,
-        dealsStatsEntity: BotDealsStatsEntity
+        dealsStatsEntity: BotDealStats
     ) {
         val usdProfit = dealsStatsEntity.activeDealsUsdProfit
         val btcProfit = dealsStatsEntity.activeDealsBtcProfit
@@ -75,9 +59,9 @@ class ThreeCommasBotsPrometheusCollector @Autowired constructor(private var serv
     }
 
     private fun collectFundsLockedMetric(
-        bot: BotEntity,
+        bot: Bot,
         fundsLockedMetric: GaugeMetricFamily,
-        dealsStatsEntity: BotDealsStatsEntity
+        dealsStatsEntity: BotDealStats
     ) {
         val fundsLockedUsd = dealsStatsEntity.fundsLockedInActiveDeals
         val fundsLockedBtc = dealsStatsEntity.btcFundsLockedInActiveDeals
@@ -85,12 +69,7 @@ class ThreeCommasBotsPrometheusCollector @Autowired constructor(private var serv
         fundsLockedMetric.addMetric(listOf("BTC", bot.id.toString(), bot.name), fundsLockedBtc)
     }
 
-    private fun collectActiveDeals(bot: BotEntity, activeDealsMetric: GaugeMetricFamily) {
+    private fun collectActiveDeals(bot: Bot, activeDealsMetric: GaugeMetricFamily) {
         activeDealsMetric.addMetric(listOf(bot.id.toString(), bot.name), bot.activeDealsCount!!.toDouble())
-    }
-
-    private fun collectAccountBalance(account: Account, metric: GaugeMetricFamily) {
-        metric.addMetric(listOf(account.id.toString(), "USD"), account.usdAmount)
-        metric.addMetric(listOf(account.id.toString(), "BTC"), account.btcAmount)
     }
 }

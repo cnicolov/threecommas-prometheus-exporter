@@ -1,0 +1,39 @@
+groups:
+- name: AccountRulesUSD
+  rules:
+
+    - record: :account_balance_changes_pct
+      labels:
+        currency: "USD"
+      expr: |
+        100 * (
+          1 - avg_over_time(threecommas_account_balance{currency="USD"}[5m] offset 10m)
+          / avg_over_time(threecommas_account_balance{currency="USD"}[5m])
+        )
+
+    - alert: GoodNewsAlertUSD
+      expr: avg_over_time(:account_balance_changes_pct{currency="USD"}[1h]) > 5
+      for: 15m
+
+    - alert: BadNewsAlertUSD
+      expr: avg_over_time(:account_balance_changes_pct{currency="USD"}[1h]) < -5
+      for: 1h
+
+- name: AccountRulesBTC
+  rules:
+    - record: :account_balance_changes_pct
+      labels:
+        currency: "BTC"
+      expr: |
+        100 * (
+          1 - avg_over_time(threecommas_account_balance{currency="BTC"}[30m] offset 90m)
+          / avg_over_time(threecommas_account_balance{currency="BTC"}[30m])
+        )
+
+    - alert: GoodNewsAlertBTC
+      expr: :account_balance_changes_pct{currency="BTC"} > 5
+      for: 1h
+
+    - alert: BadNewsAlertBTC
+      expr: :account_balance:changes_pct{currency="BTC"} < -5
+      for: 1h
