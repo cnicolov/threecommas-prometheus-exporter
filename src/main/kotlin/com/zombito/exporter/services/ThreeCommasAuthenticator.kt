@@ -20,7 +20,7 @@ class ThreeCommasAuthenticator( private val apiKey: String, private val apiSecre
     return sb.toString()
   }
 
-  private fun generateSignature(request: Request): String {
+  private fun generateSignature(request: Request) : String {
 
     val path = request.url.toUrl().path
     val query = request.url.toUrl().query
@@ -39,7 +39,7 @@ class ThreeCommasAuthenticator( private val apiKey: String, private val apiSecre
     return byteToHex(output)
   }
 
-  private fun createRequest(requestBuilder: Request.Builder): Request {
+  private fun createRequest(requestBuilder: Request.Builder) : Request {
     val request = requestBuilder.build()
     val signature = generateSignature(request)
 
@@ -49,7 +49,7 @@ class ThreeCommasAuthenticator( private val apiKey: String, private val apiSecre
       .build()
   }
 
-  fun createAuthenticatedClient(): OkHttpClient {
+  fun createAuthenticatedClient() : OkHttpClient {
     val interceptor = Interceptor { chain ->
       val originalRequest = chain.request()
       val authenticatedRequest = createRequest(originalRequest.newBuilder())

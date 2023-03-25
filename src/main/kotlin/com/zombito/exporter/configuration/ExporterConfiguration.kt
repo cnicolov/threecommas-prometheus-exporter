@@ -2,6 +2,7 @@ package com.zombito.exporter.configuration
 
 import com.zombito.exporter.collector.ThreeCommasAccountsCollector
 import com.zombito.exporter.collector.ThreeCommasBotsCollector
+import com.zombito.exporter.collector.ThreeCommasDealsCollector
 import com.zombito.exporter.collector.ThreeCommasGridBotsCollector
 import com.zombito.exporter.services.ThreeCommasService
 import io.prometheus.client.Collector
@@ -37,7 +38,12 @@ class ExporterConfiguration constructor(val threeCommasService: ThreeCommasServi
     }
 
     @Bean
-    fun threeCommasGridBotsCollector() : ThreeCommasGridBotsCollector {
+    fun gridBotsCollector() : ThreeCommasGridBotsCollector {
         return ThreeCommasGridBotsCollector(threeCommasService).register(collectorRegistry())
+    }
+
+    @Bean
+    fun dealsCollector() : ThreeCommasDealsCollector {
+        return ThreeCommasDealsCollector(threeCommasService).register(collectorRegistry())
     }
 }

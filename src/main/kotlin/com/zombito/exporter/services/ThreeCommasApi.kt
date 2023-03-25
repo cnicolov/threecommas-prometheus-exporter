@@ -1,9 +1,6 @@
 package com.zombito.exporter.services
 
-import com.zombito.exporter.model.Account
-import com.zombito.exporter.model.Bot
-import com.zombito.exporter.model.BotDealStats
-import com.zombito.exporter.model.GridBot
+import com.zombito.exporter.model.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -22,4 +19,7 @@ interface ThreeCommasApi {
   // GET
   @GET ("/public/api/ver1/grid_bots")
   fun getGridBots(): Call<List<GridBot>>
+
+  @GET("/public/api/ver1/deals")
+  fun getDeals(): Call<List<Deal>>
 }
